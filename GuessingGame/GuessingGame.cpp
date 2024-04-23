@@ -3,9 +3,8 @@
 class startInput {
 public:
 	char userInput = 0;
-	void yesOrNo() {   // Takes the user input, ensures it's valid, and sets it lowercase for compatibility.
-		bool response;
-		do {
+	void yesOrNo(bool response) {   // Takes the user input, ensures it's valid, and sets it lowercase for compatibility.
+		while (response) {
 			std::cin >> userInput;
 			userInput = tolower(userInput);
 			if (userInput == 'n') {
@@ -21,11 +20,11 @@ public:
 				std::cout << "You've entered an invalid response, please type either 'y' or 'n'.\nThank you. (y\\n) ";
 				response = true;
 			}
-		} while (response == true);
+		}
 	}
 };
 
-class activeGame {  // Game: number generator and user input
+class activeGame {  // Game: number generator, user input, and winner checker.
 public:
 	int winnerNum = 0;
 	int userInput = 0;
@@ -34,11 +33,11 @@ public:
 	bool winStatus = false;
 	void randomNum() {
 		srand(time(NULL));
-		int winnerNum = rand() % randMax + randMin;
+		winnerNum = rand() % randMax + randMin;
 		std::cout << "\nThe winning number is ";
 		std::cout << winnerNum << " ";
 		if (winnerNum == userInput) {
-			winStatus = true;
+			winStatus = true;  // winner checker
 		}
 	}
 };
@@ -48,7 +47,7 @@ int main() {	//Game Start
 	std::cout << "Type 'y' to start playing or 'n' to quit. ";
 	startInput gameStart;
 	activeGame gameWorking;
-	gameStart.yesOrNo();
+	gameStart.yesOrNo(true);
 	if (gameStart.userInput == 'y') {
 		std::cout << "\n\nStarting Game...Please Wait";
 		std::cout << "\n\nGuess a number between 1 and 10: ";
